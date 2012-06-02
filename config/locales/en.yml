@@ -1,0 +1,5 @@
+en:
+  refinery:
+    plugins:
+      refinerycms_registrable:
+        title: Registrable
