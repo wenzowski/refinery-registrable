@@ -9,9 +9,9 @@ module Refinery
         Refinery::Plugin.register do |plugin|
           plugin.pathname = root
           plugin.name = "refinerycms_registrable"
-          plugin.url = proc { Refinery::Core::Engine.routes.url_helpers.registrable_admin_path }
-          # plugin.menu_match = /refinery\/registrable\/?(courses|sessions|students|guardians)?/
-          # plugin.activity = { :class_name => :'refinery/registrable/course' }
+          plugin.url = proc { Refinery::Core::Engine.routes.url_helpers.registrable_admin_user_fields_path }
+          plugin.menu_match = /refinery\/registrable\/?(roles)?/
+          # plugin.activity = { :class_name => :'refinery/registrable/fields' }
         end
       end
 

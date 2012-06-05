@@ -1,33 +1,37 @@
-Refinery::Core::Engine.routes.append do
+Refinery::Core::Engine.routes.draw do
+
+  namespace :registrable, :path => '' do
+    resources :registrations, :except => :index
+  end
 
   namespace :registrable do
-    # root :to => "courses#index"
-    # resources :courses,   :only => [:index, :show]
-
-    devise_for :registrable_users,
-      :class_name  => 'Refinery::Registrable::User',
-      :controllers => {
-        :registrations  => 'refinery/registrable/registrations',
-        :sessions       => 'refinery/registrable/sessions'
-      },
-      :path_names  => {
-        :sign_out => 'logout',
-        :sign_in  => 'login',
-        :sign_up  => 'register'
-      }
-
+    resources :example_authentications, :only => :index do
+      collection do
+        get 'register_or_login'
+        get 'user_dashboard'
+      end
+    end
   end
 
   namespace :registrable, :path => '' do
     namespace :admin, :path => 'refinery' do
       scope :path => 'registrable' do
-        # root :to => "courses#index"
+        root :to => "user_fields#index"
 
-        # resources :courses, :except => :show do
-        #   collection do
-        #     post :update_positions
-        #   end
+        resources :user_fields do
+          collection do
+            resources :texts, :controller => 'user_fields'
+          end
+        end
+        # scope :path => 'user_fields' do
+        #
         # end
+
+        resources :settings do
+          collection do
+            get :registrable
+          end
+        end
 
       end
     end

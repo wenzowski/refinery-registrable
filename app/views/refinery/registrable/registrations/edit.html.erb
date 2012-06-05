@@ -1,0 +1,29 @@
+<% content_for :header, t('edit_your_account', :scope => 'refinery.registrable.users.titles') %>
+
+<%= form_for :user, :url => refinery.registrable_registration_path, :method => :put do |f| -%>
+
+  <%= render '/refinery/admin/error_messages', :object => @user, :include_object_name => true %>
+
+  <div class='field'>
+    <%= f.label :username %>
+    <%= f.text_field :username, :class => 'larger widest' %>
+  </div>
+  <div class='field'>
+    <%= f.label :email %>
+    <%= f.text_field :email, :class => 'larger widest' %>
+  </div>
+  <%= f.fields_for :user_attributes do |f| %>
+    <% @user.fields.each do |field| %>
+      <div class='field'>
+        <%= f.label field.name %>
+        <%= f.text_field field.name, :class => 'larger widest' %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= render '/refinery/admin/form_actions', :f => f,
+             :submit_continue => false,
+             :submit_button_text => t('update', :scope => 'refinery.registrable.users.actions'),
+             :hide_delete => true,
+             :hide_cancel => false %>
+<% end -%>

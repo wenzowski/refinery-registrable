@@ -3,3 +3,26 @@ en:
     plugins:
       refinerycms_registrable:
         title: Registrable
+    registrable:
+      users:
+        create:
+          welcome: 'Welcome to Refinery, %{who}'
+        update:
+          success: 'Your profile was successfully updated.'
+        profile_access_denied: 'Sorry %{who}, you only have access to your own profile.'
+        actions:
+          edit: 'Edit'
+          logout: 'Logout'
+          update: 'Update'
+        titles:
+          edit_your_account: 'Edit your Account'
+          your_profile: 'Your Profile'
+      admin:
+        submenu:
+          fields:
+            title: User Fields
+            manage: Manage profile fields
+            new: Create new profile field
+          settings:
+            title: Settings
+            toggle_registration: Turn user registration on or off

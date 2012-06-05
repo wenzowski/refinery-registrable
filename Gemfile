@@ -2,7 +2,7 @@ source "http://rubygems.org"
 
 gemspec
 
-gem 'refinerycms', '~> 2.0.0'
+gem 'refinerycms', :git => 'git://github.com/resolve/refinerycms.git', :branch => '2-0-stable'
 
 group :test do
   gem 'shoulda-matchers'
@@ -12,7 +12,7 @@ end
 
 group :development, :test do
 
-  gem 'refinerycms-testing', '~> 2.0.0'
+  gem 'refinerycms-testing', '~> 2.0.4'
   gem 'guard-rspec', '~> 0.6.0'
   gem 'launchy'
 
@@ -24,7 +24,9 @@ group :development, :test do
   end
 
   unless defined?(JRUBY_VERSION)
-    gem 'sqlite3'
+    group :development, :test do
+      gem 'sqlite3'
+    end
     gem 'mysql2'
     gem 'pg'
   end
@@ -75,3 +77,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+if File.exist?(File.expand_path('../.gemfile', __FILE__))
+  eval(File.read(File.expand_path('../.gemfile', __FILE__)))
+end

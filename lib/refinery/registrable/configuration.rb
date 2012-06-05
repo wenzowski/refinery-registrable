@@ -11,49 +11,63 @@ module Refinery
     config_accessor :roles, :enabled
 
     self.enabled  = true
-    self.roles    = []
+    self.roles    = [:self_registered]
 
     class << self
+      def roles=(r)
+        if r.class == Array
+          (roles - r).each do |remove|
+            disable_role!(remove)
+          end
+          (r - roles).each do |add|
+            ensure_role_enabled!(add)
+          end
+        else
+          ensure_role_enabled!(r)
+        end
+      end
+
+      def ensure_role_enabled!(r)
+        r = enforce_symbol(r)
+        add_role!(r) unless role_enabled?(r)
+      end
+
       def role_enabled?(r)
         r = enforce_symbol(r)
         roles.include? r
       end
 
-      def add_role(r)
-        r = enforce_symbol(r)
-        Refinery::Role[r]
-        roles << r
-      end
-
-      def disable_role(r)
+      def disable_role!(r)
         r = enforce_symbol(r)
         roles.delete r
       end
 
-      def delete_role(r)
+      def add_role!(r)
         r = enforce_symbol(r)
-        disable_role(r)
+        # Refinery::Role[r]
+        roles << r
+      end
+
+      def delete_role!(r)
+        r = enforce_symbol(r)
+        disable_role!(r)
         Refinery::Role[r].destroy
       end
 
-      def ensure_role(r)
-        r = enforce_symbol(r)
-        add_role(r) unless role?(r)
-      end
-
-      def ensure_roles(r_array)
+      def ensure_roles_enabled!(r_array)
         enforce_array(r_array)
-        r_array.each{|r|ensure_role(r)}
+        r_array.each {|r| ensure_role_enabled!(r) }
       end
 
       private
 
       def enforce_symbol(input)
         case input
-        when Symbol then return input
-        when String then return input.underscore.to_sym
-        when Refinery::Role then return input.title.underscore.to_sym
-        else raise TypeError
+          when Symbol then return input
+          when String then return input.underscore.to_sym
+          when Refinery::Role then return input.title.underscore.to_sym
+          else raise TypeError
+        end
       end
 
       def enforce_array(input)

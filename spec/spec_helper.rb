@@ -11,6 +11,9 @@ def setup_environment
   require 'factory_girl_rails'
   require 'shoulda/matchers/integrations/rspec'
 
+  require 'refinery/testing/controller_macros'
+  require 'refinery/testing/request_macros'
+
   Rails.backtrace_cleaner.remove_silencers!
 
   RSpec.configure do |config|

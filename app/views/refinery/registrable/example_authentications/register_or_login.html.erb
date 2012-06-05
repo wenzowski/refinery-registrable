@@ -1,0 +1,17 @@
+<% content_for :header, 'Register or Login' %>
+
+<div id="flash_container">
+  <div id="flash" class="flash flash_alert" style="visibility: visible; opacity: 1; ">
+    You must register or login to continue
+    <a href="" id="flash_close">Close</a>
+  </div>
+</div>
+
+<div class="form-actions" style="border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; ">
+  <div class="form-actions-left">
+    <%= link_to 'Login', refinery.new_refinery_user_session_path, :class => 'wymupdate button' %>
+  </div>
+  <div class="form-actions-right">
+    <%= link_to 'Register', refinery.new_registrable_registration_path, :class => 'wymupdate button' %>
+  </div>
+</div>

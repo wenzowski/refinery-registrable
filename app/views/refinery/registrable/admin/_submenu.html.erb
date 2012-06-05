@@ -1,0 +1,40 @@
+<nav id='actions' class='multilist'>
+  <ul class='search_list'>
+    <li class='not_a_link'>
+      <%= render :partial => "/refinery/admin/search",
+                 :locals => {
+                   :url => refinery.registrable_admin_user_fields_path
+                 } %>
+    </li>
+  </ul>
+
+  <ul class='collapsible_menu'>
+    <li class='not_a_link'>
+      <%= link_to t('.fields.title'), '#',
+                   :class => 'courses_icon' %>
+    </li>
+    <li>
+      <%= link_to t('.fields.manage'), refinery.registrable_admin_user_fields_path,
+                   :class => 'edit_icon' %>
+    </li>
+    <li>
+       <%= link_to t('.fields.new'), refinery.new_registrable_admin_user_field_path,
+                   :class => 'add_icon' %>
+    </li>
+  </ul>
+
+  <!-- <ul class='collapsible_menu'>
+    <li class='not_a_link'>
+      <%= link_to t('.settings.title'), '#',
+                  :class => 'settings_icon' %>
+    </li>
+    <li>
+      <%= link_to t('.settings.toggle_registration'),
+                  refinery.registrable_registrable_admin_settings_path(:dialog => true, :height => 400),
+                  :class => 'user_comment_icon' %>
+    </li>
+  </ul> -->
+
+</nav>
+
+<% content_for :stylesheets, stylesheet_link_tag('refinery/registrable/backend') %>
